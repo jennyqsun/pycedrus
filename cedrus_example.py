@@ -205,7 +205,7 @@ def parseoutput(k):
             count = count + 6
     return resp
 
-def readoutput(resp):            
+def readoutput(resp, keymap):            
     key = []
     press=[]
     stamp = []
@@ -218,7 +218,7 @@ def readoutput(resp):
         # port = respInfo[7] + respInfo[6]*2 + respInfo[5]*4 + respInfo[4]*8
         press.append(respInfo[3])
         key.append(keymap[key_])
-        stamp.append(list(r[2:6]))
+        stamp.append(r[2:6])
     return key, press, stamp
 
 
@@ -227,7 +227,7 @@ def getresponse(portname, keymap, timeout, expectkeys):
     k = getKeypress(portname,keymap, timeout, expectkeys)
     resp = parseoutput(k)
     out = readoutput(resp)
-    return out
+    return resp,out
 
 
 
@@ -242,13 +242,12 @@ def getname():
     keymap = def_keyboard(device_id, model_id)
     return portname, keymap
 
-portname, keymap = getname()
-out = getresponse(portname=portname, keymap=keymap, timeout = None, expectkeys = 3)
+# portname, keymap = getname()
+# out = getresponse(portname=portname, keymap=keymap, timeout = None, expectkeys = 1)
 
-# out is tuple
-# out[0] what key
-# out[1] press up or down
-# out[2] timestamps
 
 # you can change timeout and ecpectkeys depending on how you want to integrate to your task
 # when expectkeys is 1, serial port sends 
+
+
+
