@@ -6,24 +6,6 @@ Created on Tue Mar  1 16:16:51 2022
 @author: jenny
 """
 
-
-# import pyxid2 as pyxid
-
-# # get a list of all attached XID devices
-# devices = pyxid.get_xid_devices()
-
-# dev = devices[0] # get the first device to use
-# if dev.is_response_device():
-#     dev.reset_base_timer()
-#     dev.reset_rt_timer()
-
-#     while True:
-#         dev.poll_for_response()
-#         if dev.response_queue_size() > 0:
-#             response = dev.get_next_response()
-#             # do something with the response
-
-
 import serial
 import sys
 import numpy as np
@@ -43,6 +25,8 @@ win = visual.Window([100,100], units="pix")
 grating = visual.GratingStim(win=win, mask="circle", size=10, pos=[0,0], sf=3)
 text = visual.TextStim(win=win, text = 'pressed!')
 
+
+# logging for frame detection
 win.recordFrameIntervals = True    
 win.refreshThreshold = 1/60 + 0.004
 logging.console.setLevel(logging.WARNING)   #this will print if there is a delay
@@ -52,12 +36,17 @@ logging.console.setLevel(logging.WARNING)   #this will print if there is a delay
 s = serial.Serial(portname, 115200) 
 
 
+
+############# Trial begins #######################
+
 # reset RT and base timer
+
+
 timer = core.Clock()
 
 
 keylist = []
-T = []
+clear_buffer(s)   # clear the input and output buffer in case there is a queue
 reset_timer(s)    # reset responsebox timer
 timer.reset()     # reset psychopy timer
 
