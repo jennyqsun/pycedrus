@@ -1,25 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Feb 25 17:26:57 2022
-
-@author: hnl
-"""
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 22 10:56:20 2022
-
-@author: Jenny
-
-This script is built on morph2 developed by Ramesh and Jeff
-
-Photocell and Cedrus response keypads are added
-
-
-"""
-
 
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -93,9 +71,9 @@ def identiy_device():
 
 
 
-def get_model():
+def get_model(portname):
  # identify which device we're speaing to
-    with serial.Serial('/dev/ttyUSB0', 115200, timeout=1) as ser:
+    with serial.Serial(portname, 115200, timeout=1) as ser:
         ser.write(b"_d2")  # byte string
         device_id = ser.read(1)
 
@@ -230,7 +208,21 @@ def getresponse(portname, keymap, timeout, expectkeys):
     return resp,out
 
 
+def BytesListToHexList(tlist):
+    '''input:  a list of 4 bytes array
+       return: a list of hex (each has 2*4 bits) '''
+    th = [t.hex() for t in tlist]
+    return th 
 
+def HexToRt(t):
+    '''input: 2 x 4 bits of hex
+    return :  endian swap and convert into decimal'''
+    if type(t) == list:
+        t = t[0]
+    rt = [t[i:i+2] for i,j in enumerate(t) if i%2 ==0 ][::-1]
+    rt = ''.join(map(str,rt))
+    rt = int(rt,16)
+    return rt
 # set up resposne pad
 
 def getname():
@@ -238,9 +230,19 @@ def getname():
     portname = serial_ports()[0]
     print('writing to device...')
     identiy_device()
-    device_id, model_id = get_model()
+    device_id, model_id = get_model(portname)
     keymap = def_keyboard(device_id, model_id)
     return portname, keymap
+
+
+
+def reset_timer(s):
+    s.write(b'e1')   #reset RT and base timer
+    s.write(b'e5')
+
+def clear_buffer(s):
+    s.reset_input_buffer()
+    s.reset_output_buffer()
 
 # portname, keymap = getname()
 # out = getresponse(portname=portname, keymap=keymap, timeout = None, expectkeys = 1)
@@ -248,6 +250,4 @@ def getname():
 
 # you can change timeout and ecpectkeys depending on how you want to integrate to your task
 # when expectkeys is 1, serial port sends 
-
-
 
