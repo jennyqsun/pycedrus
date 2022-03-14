@@ -98,12 +98,16 @@ def def_keyboard(device_id, model_id):
     if device_id == b'2':
         if model_id == b'1':
             keymap = rb_540_keymap
+            print('model: rb_540_keymap' )
         elif model_id == b'2':
             keymap = rb_740_keymap
+            print('model: rb_740_keymap' )
         elif model_id == b'3':
             keymap = rb_840_keymap
+            print('model: rb_840_keymap' )
         elif model_id == b'4':
             keymap = rb_834_keymap
+            print('model: rb_834_keymap' )
         else:
             print("An unknown RB model was detected. Very strange.")
             keymap == []

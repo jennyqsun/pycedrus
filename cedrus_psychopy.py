@@ -6,6 +6,13 @@ Created on Tue Mar  1 16:16:51 2022
 @author: jenny
 """
 
+'''this script demonstrates how to integrate Cedrus Response Pad 
+to Psychopy with frame by frame control 
+for each frame a key press can be detected (which key, press or release)
+once a key a detected under the current frame, the window is closed
+to avoid delay time stamps is converted from hex to decimal with the endian swap afterwards
+'''
+
 import serial
 import sys
 import numpy as np
@@ -32,7 +39,7 @@ win.refreshThreshold = 1/60 + 0.004
 logging.console.setLevel(logging.WARNING)   #this will print if there is a delay
 
 
-
+# open the serila port
 s = serial.Serial(portname, 115200) 
 
 
@@ -61,24 +68,27 @@ for frameN in range(60*5):
         if press == [1]:
             text.draw()
             win.flip()
-        if key[0] == 2:
+        if key[0] == 2:             # if a certain button is pushed
             break
 win.close()
         
-# # convert the time of correct button push
-# t = BytesListToHexList(time)
-# rt = HexToRt(t)
-# print('rt of the correct key press: ', rt)
-# print('psychopy timer: ', t1*1000)
+# convert the time of correct button push
+t = BytesListToHexList(time)
+rt = HexToRt(t)
+print('rt of the correct key press: ', rt)
+print('psychopy timer: ', t1*1000)
 
+############################################
+# uncomment the following code (and comment out the snippet above) if one needs to
 # convert the time of all button pushes
+#############################################
 
-keys, pressed, times = readoutput(keylist, keymap)
-times = BytesListToHexList(times)
-times = np.array([HexToRt(i) for i in times])
-keys = np.array(keys)
-pressed = np.array(pressed)
-print('RT:', times[pressed==1])
-print('Keys:', keys[pressed==1])
+# keys, pressed, times = readoutput(keylist, keymap)
+# times = BytesListToHexList(times)
+# times = np.array([HexToRt(i) for i in times])
+# keys = np.array(keys)
+# pressed = np.array(pressed)
+# print('RT:', times[pressed==1])
+# print('Keys:', keys[pressed==1])
 
 
