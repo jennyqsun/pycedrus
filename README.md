@@ -6,3 +6,5 @@
 
 cedrus_utils.py contains utility functions  
 cedrus_psychopy.py gives an example of integrating to psychopy frame control and precision test  
+
+currently works for all cedurs response pad models  
