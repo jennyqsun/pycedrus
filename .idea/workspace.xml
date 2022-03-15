@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47ae14c0-435f-4449-bfcb-64a9a85ee8ed" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cedrus_psychopy.py" beforeDir="false" afterPath="$PROJECT_DIR$/cedrus_psychopy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cedrus_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/cedrus_util.py" afterDir="false" />
-    </list>
+    <list default="true" id="47ae14c0-435f-4449-bfcb-64a9a85ee8ed" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1646004592470</updated>
       <workItem from="1646004593759" duration="1180000" />
-      <workItem from="1647281545594" duration="5673000" />
+      <workItem from="1647281545594" duration="5932000" />
     </task>
     <servers />
   </component>
