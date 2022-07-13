@@ -72,23 +72,26 @@ for frameN in range(60*5):
             break
 win.close()
         
-# convert the time of correct button push
-t = BytesListToHexList(time)
-rt = HexToRt(t)
-print('rt of the correct key press: ', rt)
-print('psychopy timer: ', t1*1000)
+# # convert the time of correct button push
+# t = BytesListToHexList(time)
+# rt = HexToRt(t)
+# print('rt of the correct key press: ', rt)
+# print('psychopy timer: ', t1*1000)
 
 ############################################
 # uncomment the following code (and comment out the snippet above) if one needs to
 # convert the time of all button pushes
 #############################################
 
-# keys, pressed, times = readoutput(keylist, keymap)
-# times = BytesListToHexList(times)
-# times = np.array([HexToRt(i) for i in times])
-# keys = np.array(keys)
-# pressed = np.array(pressed)
-# print('RT:', times[pressed==1])
-# print('Keys:', keys[pressed==1])
+keys, pressed, times = readoutput(keylist, keymap)
+times = BytesListToHexList(times)
+times = np.array([HexToRt(i) for i in times])
+keys = np.array(keys)
+pressed = np.array(pressed)
+print('RT:', times[pressed==1])
+print('Keys:', keys[pressed==1])
+
+
+
 
 

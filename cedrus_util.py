@@ -59,7 +59,7 @@ def send_ser_command(device, command, bytes_expected=0):
 
 
 
-def identiy_device():
+def identify_device():
     portname = serial_ports()[0]
     with serial.Serial(portname, 115200, timeout=1) as ser:
         ser.write(b"_c1")  # byte string
@@ -68,6 +68,9 @@ def identiy_device():
 
     if (len(query_return)) > 0 & (query_return == b"_xid0"):
         print('device detected!')
+    else:
+        print('cannot detect device. Exiting now.')
+        sys.exit()
 
 
 
@@ -79,6 +82,8 @@ def get_model(portname):
 
         ser.write(b"_d3")  # byte string
         model_id = ser.read(1)
+    print('device id: ', device_id)
+    print('model id: ' , model_id)
     return device_id, model_id
 
 
@@ -98,23 +103,28 @@ def def_keyboard(device_id, model_id):
     if device_id == b'2':
         if model_id == b'1':
             keymap = rb_540_keymap
-            print('model: rb_540_keymap' )
         elif model_id == b'2':
             keymap = rb_740_keymap
-            print('model: rb_740_keymap' )
-        elif model_id == b'3':
+        elif model_id == b'3' or model_id == b'e':
             keymap = rb_840_keymap
-            print('model: rb_840_keymap' )
         elif model_id == b'4':
             keymap = rb_834_keymap
-            print('model: rb_834_keymap' )
         else:
             print("An unknown RB model was detected. Very strange.")
+            print(model_id)
             keymap == []
     if keymap:
         print('keymap found')
+
     else:
-        print('no keymap')
+        print('CAUTION: no keymap')
+        print('Will automatically mapped to rb_840_keymp model. \nDo you want to continue?\
+                      \nPress Y to continue (Y/n):')
+        x = input()
+        if x == 'n':
+            sys.exit()
+        else:
+            keymap = rb_840_keymap
     return keymap
 
 
@@ -233,7 +243,7 @@ def getname():
     
     portname = serial_ports()[0]
     print('writing to device...')
-    identiy_device()
+    identify_device()
     device_id, model_id = get_model(portname)
     keymap = def_keyboard(device_id, model_id)
     return portname, keymap
