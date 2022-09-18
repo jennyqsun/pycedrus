@@ -14,7 +14,7 @@ Problem shoot:
 
 if fail to open the serial port, type the following command line in terminal:
 
-sudo usermod -a -G tty username
+sudo usermod -a -G tty username  
 sudo usermod -a -G dialout username
 
 then reboot the machine
