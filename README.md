@@ -15,15 +15,8 @@ currently works for all cedurs response pad models
 
 if fail to open the serial port, type the following command line in terminal:
 
-sudo usermod -a -G tty username  
-sudo usermod -a -G dialout username
-
-then reboot the machine
-
-sudo reboot
-
-
-
-
+- sudo usermod -a -G tty username  
+- sudo usermod -a -G dialout username
+- sudo reboot
 
 
